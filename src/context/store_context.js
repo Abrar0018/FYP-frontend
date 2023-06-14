@@ -25,7 +25,8 @@ export const StoreProvider = ({ children }) => {
     dispatch({ type: GET_STORE_PRODUCTS_BEGIN });
     try {
       const response = await axios.get(url);
-      const products = response.data;
+      const products = response.data.products;
+      console.log(products);
       dispatch({ type: GET_STORE_PRODUCTS_SUCCESS, payload: products });
     } catch (error) {
       dispatch({ type: GET_STORE_PRODUCTS_ERROR });
@@ -37,13 +38,14 @@ export const StoreProvider = ({ children }) => {
   }, []);
 
   const addProduct = (product) => {
-    dispatch({ type: ADD_STORE_PRODUCT,payload:product });
+    dispatch({ type: ADD_STORE_PRODUCT, payload: product });
   };
   const updateProduct = (product) => {
-    dispatch({ type: UPDATE_STORE_PRODUCT,payload:product });
+    dispatch({ type: UPDATE_STORE_PRODUCT, payload: product });
   };
-  const deleteProduct = (product) => {
-    dispatch({ type: DELETE_STORE_PRODUCT, payload: product });
+  const deleteProduct = (product_id) => {
+    console.log("in context" + product_id);
+    dispatch({ type: DELETE_STORE_PRODUCT, payload: product_id });
   };
 
   return (

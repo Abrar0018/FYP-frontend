@@ -3,28 +3,29 @@ import { PageHero } from "../components";
 import styled from "styled-components";
 import aboutImg from "../assets/hero-bcg.jpeg";
 import { Link } from "react-router-dom";
-import { FaSearch } from "react-icons/fa";
 import { formatPrice } from "../utils/helpers";
-import Product from "../components/Product";
+import { useStoreContext } from "../context/store_context";
+
 import axios from "axios";
 
 const prod_url = "/api/v1/products";
 const MyStore = () => {
+  const { products, deleteProduct } = useStoreContext();
   const [storeCreated, setStoreCreated] = useState(true);
 
-  const fetchProducts = async (url) => {
-    try {
-      const response = await axios.get(url);
-      const products = response.data;
-      console.log(products);
-    } catch (error) {
-      console.log("error occured in fetching products");
-    }
-  };
+  // const fetchProducts = async (url) => {
+  //   try {
+  //     const response = await axios.get(url);
+  //     const products = response.data;
+  //     console.log(products);
+  //   } catch (error) {
+  //     console.log("error occured in fetching products");
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchProducts(prod_url);
-  }, []);
+  // useEffect(() => {
+  //   console.log(products);
+  // });
 
   if (storeCreated === false) {
     return (
@@ -71,7 +72,7 @@ const MyStore = () => {
             </div>
 
             <div className="products-container">
-              {productsData.map(({ image, name, price, id }) => {
+              {products.map(({ image, name, price, id }) => {
                 return (
                   <div key={id}>
                     <div className="container">
@@ -83,7 +84,9 @@ const MyStore = () => {
                     </footer>
                     <div className="btn-container">
                       <button className="btn">Update</button>
-                      <button className="btn">Delete</button>
+                      <button className="btn" onClick={() => deleteProduct(id)}>
+                        Delete
+                      </button>
                     </div>
                   </div>
                 );
@@ -138,7 +141,7 @@ const Wrapper = styled.section`
   }
   .products-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, auto));
+    grid-template-columns: repeat(auto-fill, minmax(250px, auto));
     gap: 1rem;
     margin-top: 3rem;
     margin-bottom: 3rem;
