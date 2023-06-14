@@ -28,12 +28,30 @@ const products_reducer = (state, action) => {
     });
     return { ...state, products: tempProducts };
   }
+
+  if (action.type === ADD_STORE_PRODUCT) {
+    addProduct(action.payload);
+    return { ...state };
+  }
   throw new Error(`No Matching "${action.type}" - action type`);
 };
 
 const deleteProduct = async (id) => {
   try {
     await axios.delete(`${products_url}/${id}`);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const addProduct = async (payload) => {
+  const img = payload.formdata;
+  const prod = payload.product;
+  console.log("img:: ", img);
+  console.log("prod:: ", prod);
+  try {
+    //await axios.post(`${products_url}`, prod);
+    await axios.post(`${products_url}/uploadImage`, img);
   } catch (error) {
     console.log(error);
   }

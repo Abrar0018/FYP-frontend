@@ -13,20 +13,6 @@ const MyStore = () => {
   const { products, deleteProduct } = useStoreContext();
   const [storeCreated, setStoreCreated] = useState(true);
 
-  // const fetchProducts = async (url) => {
-  //   try {
-  //     const response = await axios.get(url);
-  //     const products = response.data;
-  //     console.log(products);
-  //   } catch (error) {
-  //     console.log("error occured in fetching products");
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   console.log(products);
-  // });
-
   if (storeCreated === false) {
     return (
       <NoStoreWrapper className="page-100">

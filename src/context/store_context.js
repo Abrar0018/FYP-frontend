@@ -37,8 +37,8 @@ export const StoreProvider = ({ children }) => {
     fetchProducts(products_url);
   }, []);
 
-  const addProduct = (product) => {
-    dispatch({ type: ADD_STORE_PRODUCT, payload: product });
+  const addProduct = (formdata, product) => {
+    dispatch({ type: ADD_STORE_PRODUCT, payload: { formdata, product } });
   };
   const updateProduct = (product) => {
     dispatch({ type: UPDATE_STORE_PRODUCT, payload: product });
