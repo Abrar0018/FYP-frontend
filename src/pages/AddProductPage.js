@@ -1,20 +1,11 @@
 import React, { useState } from "react";
 import { PageHero } from "../components";
 import { useStoreContext } from "../context/store_context";
+import { categories } from "../utils/constants";
 
-const categories = [
-  "Men's Fashion",
-  "Mother & Baby",
-  "Home & Lifestyle",
-  "Electronic Devices",
-  "Electronic Accessories",
-  "TV & Home Appliances",
-  "Sports & Outdoor",
-  "Watches, Bags & Jewelry",
-  "Automotive & Motorbike",
-];
 const AddProductPage = () => {
   const { addProduct } = useStoreContext();
+  const [img, setImg] = useState({ selectedFile: null });
   const [product, setProduct] = useState({
     name: "",
     price: "",
@@ -25,7 +16,7 @@ const AddProductPage = () => {
     category: "Men's Fashion",
     inventory: "",
   });
-  const [img, setImg] = useState({ selectedFile: null });
+
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -34,18 +25,32 @@ const AddProductPage = () => {
   const handleImgChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setProduct({ ...product, [name]: value });
-
     const file = e.target.files[0];
+
+    if (file.size > 2000000) {
+      alert("File size must not be greater than 2mbs");
+      return;
+    }
+
+    setProduct({ ...product, [name]: value });
     setImg({ selectedFile: file });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const formdata = new FormData();
-    formdata.append("image", img.selectedFile, img.selectedFile.name);
-
-    addProduct(formdata, product);
+    if (
+      !product.name ||
+      !product.price ||
+      !product.image ||
+      !product.company ||
+      !product.description ||
+      !product.inventory
+    ) {
+      alert("Please provide all the details before adding the product");
+      return;
+    }
+    addProduct(img, product);
   };
   return (
     <main>

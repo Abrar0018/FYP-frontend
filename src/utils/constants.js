@@ -49,6 +49,18 @@ export const services = [
   },
 ];
 
+export const categories = [
+  "Men's Fashion",
+  "Mother & Baby",
+  "Home & Lifestyle",
+  "Electronic Devices",
+  "Electronic Accessories",
+  "TV & Home Appliances",
+  "Sports & Outdoor",
+  "Watches, Bags & Jewelry",
+  "Automotive & Motorbike",
+];
+
 export const products_url = "https://course-api.com/react-store-products";
 
 export const single_product_url = `https://course-api.com/react-store-single-product?id=`;

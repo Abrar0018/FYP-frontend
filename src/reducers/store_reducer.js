@@ -45,15 +45,17 @@ const deleteProduct = async (id) => {
 };
 
 const addProduct = async (payload) => {
-  const img = payload.formdata;
+  const img = payload.img;
   const prod = payload.product;
-  console.log("img:: ", img);
-  console.log("prod:: ", prod);
+  const data = new FormData();
+
   try {
-    //await axios.post(`${products_url}`, prod);
-    await axios.post(`${products_url}/uploadImage`, img);
+    const res = await axios.post(`${products_url}`, prod);
+    data.append("image", img.selectedFile, `${res.data.finalProduct.id}.jpg`);
+    await axios.post(`${products_url}/uploadImage`, data);
   } catch (error) {
     console.log(error);
   }
 };
+
 export default products_reducer;
