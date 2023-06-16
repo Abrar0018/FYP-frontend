@@ -11,38 +11,41 @@ import {
   Products,
   Stores,
   PrivateRoute,
-  AuthWrapper,
   MyStore,
   AddProductPage,
+  Register,
 } from "./pages";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   return (
-    <AuthWrapper>
-      <Router>
-        <Navbar />
-        <Sidebar />
-        <Routes>
-          <Route path="/" exact element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="cart" element={<Cart />} />
-          <Route path="products" element={<Products />} />
-          <Route path="stores" element={<Stores />} />
-          <Route path="mystore" element={<MyStore />} />
-          <Route path="addproduct" element={<AddProductPage />} />
-          <Route path="products/:id" element={<SingleProduct />} />
-          <Route
-            path="checkout"
-            element={
-              <PrivateRoute>
-                <Checkout />
-              </PrivateRoute>
-            }
-          />
-          <Route path="error" element={<Error />} />
-        </Routes>
-        <Footer />
-      </Router>
-    </AuthWrapper>
+    <Router>
+      <Navbar />
+      <Sidebar />
+      <Routes>
+        <Route path="/" exact element={<Home />} />
+        <Route path="about" element={<About />} />
+        <Route path="cart" element={<Cart />} />
+        <Route path="products" element={<Products />} />
+        <Route path="stores" element={<Stores />} />
+        <Route path="mystore" element={<MyStore />} />
+        <Route path="register" element={<Register />} />
+        <Route path="addproduct" element={<AddProductPage />} />
+        <Route path="products/:id" element={<SingleProduct />} />
+        <Route
+          path="checkout"
+          element={
+            <PrivateRoute>
+              <Checkout />
+            </PrivateRoute>
+          }
+        />
+        <Route path="error" element={<Error />} />
+      </Routes>
+      <Footer />
+      <ToastContainer position="top-center" />
+    </Router>
   );
 }
 

@@ -1,19 +1,33 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
-
+import axios from "axios";
+import { toast } from "react-toastify";
 const UserContext = React.createContext();
 export const UserProvider = ({ children }) => {
-  const { loginWithRedirect, logout, user, isLoading, error } = useAuth0();
-  const [myUser, setMyUser] = useState(null);
+  const [myUser, setMyUser] = useState({});
 
-  useEffect(() => {
+  const loginWithRedirect = async (email, password) => {
+    try {
+      const res = await axios.post(`/api/v1/auth/login`, {
+        email,
+        password,
+      });
+      setMyUser({ name: res.data.user.name, id: res.data.user.id });
+    } catch (error) {
+      setMyUser(null);
+      console.log(error);
+      toast.error("Login failed");
+    }
+  };
+  const logout = () => {
+    setMyUser(null);
+  };
+  const registerUser = (user) => {
+    console.log("registering");
     console.log(user);
-    setMyUser(user);
-  }, [user]);
-
+  };
   return (
     <UserContext.Provider
-      value={{ loginWithRedirect, logout, myUser, isLoading, error }}
+      value={{ loginWithRedirect, logout, registerUser, myUser }}
     >
       {children}
     </UserContext.Provider>

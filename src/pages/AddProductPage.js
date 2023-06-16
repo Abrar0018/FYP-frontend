@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { PageHero } from "../components";
+import { PageHero, FormRow } from "../components";
 import { useStoreContext } from "../context/store_context";
 import { categories } from "../utils/constants";
+import { toast } from "react-toastify";
 
 const AddProductPage = () => {
   const { addProduct } = useStoreContext();
@@ -28,7 +29,7 @@ const AddProductPage = () => {
     const file = e.target.files[0];
 
     if (file.size > 2000000) {
-      alert("File size must not be greater than 2mbs");
+      toast.error("File size must not be greater than 2mbs");
       return;
     }
 
@@ -38,7 +39,6 @@ const AddProductPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (
       !product.name ||
       !product.price ||
@@ -47,7 +47,7 @@ const AddProductPage = () => {
       !product.description ||
       !product.inventory
     ) {
-      alert("Please provide all the details before adding the product");
+      toast.error("Please provide all the details before adding the product");
       return;
     }
     addProduct(img, product);
@@ -64,74 +64,53 @@ const AddProductPage = () => {
         encType="multipart/form-data"
         onSubmit={handleSubmit}
       >
+        <FormRow
+          type="text"
+          name="name"
+          value={product.name}
+          handleChange={handleChange}
+        />
+        <FormRow
+          type="number"
+          name="price"
+          value={product.price}
+          handleChange={handleChange}
+        />
+        <FormRow
+          type="file"
+          name="image"
+          value={product.image}
+          handleChange={handleImgChange}
+        />
+        <FormRow
+          type="text"
+          name="company"
+          value={product.company}
+          handleChange={handleChange}
+        />
+        <FormRow
+          type="text"
+          name="description"
+          value={product.description}
+          handleChange={handleChange}
+        />
+        <FormRow
+          type="number"
+          name="inventory"
+          value={product.inventory}
+          handleChange={handleChange}
+        />
         <div className="form-control">
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={product.name}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-control">
-          <label htmlFor="price">Price</label>
-          <input
-            type="number"
-            id="price"
-            name="price"
-            value={product.price}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-control">
-          <label htmlFor="image">Image</label>
-          <input
-            type="file"
-            alt="image name"
-            id="image"
-            name="image"
-            value={product.image}
-            onChange={handleImgChange}
-          />
-        </div>
-        <div className="form-control">
-          <label htmlFor="company">Company</label>
-          <input
-            type="text"
-            id="company"
-            name="company"
-            value={product.company}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-control">
-          <label htmlFor="description">Description</label>
-          <input
-            type="text"
-            id="description"
-            name="description"
-            value={product.description}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-control">
-          <label htmlFor="inventory">Inventory</label>
-          <input
-            type="number"
-            id="inventory"
-            name="inventory"
-            value={product.inventory}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-control">
-          <label htmlFor="category">Category</label>
+          <label htmlFor="category" className="form-label">
+            Category
+          </label>
           <select
+            className="form-input"
             name="category"
             id="category"
             value={product.category}
             onChange={handleChange}
+            style={{ background: "white" }}
           >
             {categories.map((c) => {
               return (

@@ -10,6 +10,7 @@ import AuthWrapper from "./AuthWrapper";
 import Stores from "./StoresPage";
 import MyStore from "./MyStore";
 import AddProductPage from "./AddProductPage";
+import Register from "./Register";
 
 export {
   Home,
@@ -24,4 +25,5 @@ export {
   PrivateRoute,
   AuthWrapper,
   AddProductPage,
+  Register,
 };
