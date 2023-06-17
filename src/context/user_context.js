@@ -2,24 +2,39 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 const UserContext = React.createContext();
+const initialState = {
+  loading: false,
+  error: false,
+};
 export const UserProvider = ({ children }) => {
-  const [myUser, setMyUser] = useState({});
+  const [loginDetails, setLoginDetails] = useState(initialState);
+  const [user, setUser] = useState(null);
 
   const loginWithRedirect = async (email, password) => {
+    setLoginDetails({ ...loginDetails, loading: true });
     try {
       const res = await axios.post(`/api/v1/auth/login`, {
         email,
         password,
       });
-      setMyUser({ name: res.data.user.name, id: res.data.user.id });
+      setUser({ name: res.data.user.name, id: res.data.user.userId });
+      setLoginDetails({
+        loading: false,
+        error: true,
+      });
     } catch (error) {
-      setMyUser(null);
       console.log(error);
+      setLoginDetails({ loading: false, error: true });
       toast.error("Login failed");
     }
   };
   const logout = () => {
-    setMyUser(null);
+    setLoginDetails({
+      loading: false,
+      error: false,
+    });
+
+    setUser(null);
   };
   const registerUser = (user) => {
     console.log("registering");
@@ -27,7 +42,7 @@ export const UserProvider = ({ children }) => {
   };
   return (
     <UserContext.Provider
-      value={{ loginWithRedirect, logout, registerUser, myUser }}
+      value={{ loginWithRedirect, logout, registerUser, ...loginDetails, user }}
     >
       {children}
     </UserContext.Provider>

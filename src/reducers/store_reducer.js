@@ -6,7 +6,11 @@ import {
   ADD_STORE_PRODUCT,
   DELETE_STORE_PRODUCT,
   UPDATE_STORE_PRODUCT,
+  GET_STORE_BEGIN,
+  GET_STORE_SUCCESS,
+  GET_STORE_ERROR,
 } from "../actions";
+
 const products_url = "/api/v1/products";
 const products_reducer = (state, action) => {
   if (action.type === GET_STORE_PRODUCTS_BEGIN) {
@@ -32,6 +36,16 @@ const products_reducer = (state, action) => {
   if (action.type === ADD_STORE_PRODUCT) {
     addProduct(action.payload);
     return { ...state };
+  }
+
+  if (action.type === GET_STORE_BEGIN) {
+    return { ...state, store_loading: true };
+  }
+  if (action.type === GET_STORE_SUCCESS) {
+    return { ...state, store: action.payload };
+  }
+  if (action.type === GET_STORE_ERROR) {
+    return { ...state, store_loading: false, store_error: true };
   }
   throw new Error(`No Matching "${action.type}" - action type`);
 };

@@ -10,10 +10,11 @@ import axios from "axios";
 
 const prod_url = "/api/v1/products";
 const MyStore = () => {
-  const { products, deleteProduct } = useStoreContext();
+  const { products, deleteProduct, store, store_loading, store_error } =
+    useStoreContext();
   const [storeCreated, setStoreCreated] = useState(true);
 
-  if (storeCreated === false) {
+  if (!store) {
     return (
       <NoStoreWrapper className="page-100">
         <section>
@@ -29,24 +30,13 @@ const MyStore = () => {
       <PageHero title="My Store" />
       <Wrapper className="page section section-center">
         <article className="store-info">
-          <img src={aboutImg} alt="nice desk" />
+          <img src={store.image} alt="nice desk" />
           <article>
             <div className="title">
-              <h2>Store Name</h2>
+              <h2>{store.title}</h2>
               <div className="underline"></div>
             </div>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugiat
-              accusantium sapiente tempora sed dolore esse deserunt eaque
-              excepturi, delectus error accusamus vel eligendi, omnis beatae.
-              Quisquam, dicta. Eos quod quisquam esse recusandae vitae neque
-              dolore, obcaecati incidunt sequi blanditiis est exercitationem
-              molestiae delectus saepe odio eligendi modi porro eaque in libero
-              minus unde sapiente consectetur architecto. Ullam rerum, nemo iste
-              ex, eaque perspiciatis nisi, eum totam velit saepe sed quos
-              similique amet. Ex, voluptate accusamus nesciunt totam vitae esse
-              iste.
-            </p>
+            <p>{store.description}</p>
           </article>
         </article>
 

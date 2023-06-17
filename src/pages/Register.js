@@ -18,9 +18,14 @@ const initialState = {
 
 function Register() {
   const [values, setValues] = useState(initialState);
-  const { user, isLoading } = useState(null);
   const navigate = useNavigate();
-  const { loginWithRedirect, registerUser } = useUserContext();
+  const {
+    loginWithRedirect,
+    registerUser,
+    error,
+    loading: isLoading,
+    user,
+  } = useUserContext();
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -38,6 +43,7 @@ function Register() {
 
     if (isMember) {
       loginWithRedirect(email, password);
+      navigate("/");
       return;
     }
 
@@ -48,13 +54,13 @@ function Register() {
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
   };
-  useEffect(() => {
-    if (user) {
-      setTimeout(() => {
-        navigate("/");
-      }, 2000);
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     setTimeout(() => {
+  //       navigate("/");
+  //     }, 2000);
+  //   }
+  // }, [user]);
   return (
     <Wrapper className="page-100">
       <form className="form" onSubmit={onSubmit}>
