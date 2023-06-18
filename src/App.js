@@ -14,6 +14,8 @@ import {
   MyStore,
   AddProductPage,
   Register,
+  UpdateStorePage,
+  UpdateProductPage,
 } from "./pages";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -28,11 +30,16 @@ function App() {
         <Route path="about" element={<About />} />
         <Route path="cart" element={<Cart />} />
         <Route path="products" element={<Products />} />
+        <Route path="products/:id" element={<SingleProduct />} />
         <Route path="stores" element={<Stores />} />
         <Route path="mystore" element={<MyStore />} />
+        <Route
+          path="mystore/products/updateProduct/:id"
+          element={<UpdateProductPage />}
+        />
         <Route path="register" element={<Register />} />
         <Route path="addproduct" element={<AddProductPage />} />
-        <Route path="products/:id" element={<SingleProduct />} />
+        <Route path="updatestorepage" element={<UpdateStorePage />} />
         <Route
           path="checkout"
           element={

@@ -9,6 +9,8 @@ import {
   GET_STORE_BEGIN,
   GET_STORE_SUCCESS,
   GET_STORE_ERROR,
+  CREATE_STORE,
+  UPDATE_STORE,
 } from "../actions";
 
 const products_url = "/api/v1/products";
@@ -47,6 +49,15 @@ const products_reducer = (state, action) => {
   if (action.type === GET_STORE_ERROR) {
     return { ...state, store_loading: false, store_error: true };
   }
+  if (action.type === CREATE_STORE) {
+    createStore(action.payload);
+    return { ...state };
+  }
+  if (action.type === UPDATE_STORE) {
+    console.log("in update store reducer", action.payload);
+    updateStore(action.payload);
+    return { ...state };
+  }
   throw new Error(`No Matching "${action.type}" - action type`);
 };
 
@@ -65,8 +76,50 @@ const addProduct = async (payload) => {
 
   try {
     const res = await axios.post(`${products_url}`, prod);
-    data.append("image", img.selectedFile, `${res.data.finalProduct.id}.jpg`);
+    let imgDetails = `${res.data.finalProduct.id}.${
+      img.selectedFile.type.split("/")[1]
+    }`;
+    console.log(imgDetails);
+    data.append("image", img.selectedFile, imgDetails);
     await axios.post(`${products_url}/uploadImage`, data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const createStore = async (payload) => {
+  const img = payload.img;
+  const store = payload.storeDetails;
+  const data = new FormData();
+
+  try {
+    const res = await axios.post("/api/v1/stores", store);
+    console.log(res);
+    let imgDetails = `${res.data.store._id}.${
+      img.selectedFile.type.split("/")[1]
+    }`;
+    console.log("data: ", res.data.store._id);
+    data.append("image", img.selectedFile, imgDetails);
+    await axios.post(`/api/v1/stores/uploadImage`, data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const updateStore = async (payload) => {
+  const img = payload.img;
+  const store = payload.storeDetails;
+  const data = new FormData();
+
+  try {
+    const res = await axios.patch(`/api/v1/stores/${store.id}`, store);
+    console.log(res);
+    console.log("data: ", res.data.store.id);
+    let imgDetails = `${res.data.store._id}.${
+      img.selectedFile.type.split("/")[1]
+    }`;
+    data.append("image", img.selectedFile, imgDetails);
+    await axios.post(`/api/v1/stores/uploadImage`, data);
   } catch (error) {
     console.log(error);
   }

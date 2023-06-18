@@ -1,25 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { PageHero } from "../components";
+import { StoreInfo, FormRow, PageHero } from "../components";
 import styled from "styled-components";
 import aboutImg from "../assets/hero-bcg.jpeg";
 import { Link } from "react-router-dom";
 import { formatPrice } from "../utils/helpers";
 import { useStoreContext } from "../context/store_context";
-
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const prod_url = "/api/v1/products";
 const MyStore = () => {
-  const { products, deleteProduct, store, store_loading, store_error } =
-    useStoreContext();
-  const [storeCreated, setStoreCreated] = useState(true);
+  const {
+    products,
+    deleteProduct,
+    store,
+    store_loading,
+    store_error,
+    createStore,
+  } = useStoreContext();
 
   if (!store) {
     return (
       <NoStoreWrapper className="page-100">
         <section>
           <h3>You have not created a store yet..</h3>
-          <button className="btn">Create Store</button>
+          <StoreInfo />
         </section>
       </NoStoreWrapper>
     );
@@ -38,6 +43,9 @@ const MyStore = () => {
             </div>
             <p>{store.description}</p>
           </article>
+          <Link to="/updatestorepage">
+            <button className="btn">Update Store</button>
+          </Link>
         </article>
 
         <section className="store-products">
@@ -59,7 +67,11 @@ const MyStore = () => {
                       <p>{formatPrice(price)}</p>
                     </footer>
                     <div className="btn-container">
-                      <button className="btn">Update</button>
+                      <button className="btn">
+                        <Link to={`/mystore/products/updateProduct/${id}`}>
+                          Update
+                        </Link>
+                      </button>
                       <button className="btn" onClick={() => deleteProduct(id)}>
                         Delete
                       </button>

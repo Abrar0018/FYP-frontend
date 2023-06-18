@@ -11,6 +11,8 @@ import {
   GET_STORE_BEGIN,
   GET_STORE_SUCCESS,
   GET_STORE_ERROR,
+  CREATE_STORE,
+  UPDATE_STORE,
 } from "../actions";
 import axios from "axios";
 import { useUserContext } from "./user_context";
@@ -50,6 +52,7 @@ export const StoreProvider = ({ children }) => {
     dispatch({ type: GET_STORE_BEGIN });
     try {
       const res = await axios.get(`/api/v1/users/${id}/stores`);
+      console.log("from foo fetch: ", res.data.stores[0]);
       dispatch({ type: GET_STORE_SUCCESS, payload: res.data.stores[0] });
     } catch (error) {
       console.log(error);
@@ -74,6 +77,14 @@ export const StoreProvider = ({ children }) => {
     dispatch({ type: DELETE_STORE_PRODUCT, payload: product_id });
   };
 
+  const createStore = (img, storeDetails) => {
+    console.log(img, storeDetails);
+    dispatch({ type: CREATE_STORE, payload: { img, storeDetails } });
+  };
+
+  const updateStore = (img, storeDetails) => {
+    dispatch({ type: UPDATE_STORE, payload: { img, storeDetails } });
+  };
   return (
     <StoreContext.Provider
       value={{
@@ -81,6 +92,8 @@ export const StoreProvider = ({ children }) => {
         addProduct,
         updateProduct,
         deleteProduct,
+        createStore,
+        updateStore,
       }}
     >
       {children}

@@ -29,3 +29,5 @@ export const GET_STORE_INFO = "GET_STORE_INFO";
 export const GET_STORE_BEGIN = "GET_STORE_BEGIN";
 export const GET_STORE_SUCCESS = "GET_STORE_SUCCESS";
 export const GET_STORE_ERROR = "GET_STORE_ERROR";
+export const CREATE_STORE = "CREATE_STORE";
+export const UPDATE_STORE = "UPDATE_STORE";

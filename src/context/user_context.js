@@ -20,7 +20,7 @@ export const UserProvider = ({ children }) => {
       setUser({ name: res.data.user.name, id: res.data.user.userId });
       setLoginDetails({
         loading: false,
-        error: true,
+        error: false,
       });
     } catch (error) {
       console.log(error);
@@ -35,10 +35,16 @@ export const UserProvider = ({ children }) => {
     });
 
     setUser(null);
+    window.location.reload();
   };
-  const registerUser = (user) => {
-    console.log("registering");
-    console.log(user);
+  const registerUser = async (user) => {
+    try {
+      const res = await axios.post(`/api/v1/auth/register`, user);
+      setUser({ name: res.data.user.name, id: res.data.user.userId });
+    } catch (error) {
+      const msg = error.response.data.msg;
+      toast.error(msg);
+    }
   };
   return (
     <UserContext.Provider

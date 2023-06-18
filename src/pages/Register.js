@@ -47,8 +47,12 @@ function Register() {
       return;
     }
 
-    navigate("/");
+    if (password.length < 8) {
+      toast.error("Password length must be greator then 8");
+      return;
+    }
     registerUser(values);
+    navigate("/");
   };
 
   const toggleMember = () => {

@@ -11,6 +11,8 @@ import Stores from "./StoresPage";
 import MyStore from "./MyStore";
 import AddProductPage from "./AddProductPage";
 import Register from "./Register";
+import UpdateStorePage from "./UpdateStorePage";
+import UpdateProductPage from "./UpdateProductPage";
 
 export {
   Home,
@@ -26,4 +28,6 @@ export {
   AuthWrapper,
   AddProductPage,
   Register,
+  UpdateStorePage,
+  UpdateProductPage,
 };

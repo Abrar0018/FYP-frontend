@@ -274,3 +274,7 @@ p {
 .btn-block {
   width: 100%;
 }
+
+Link {
+  text-align: center;
+}

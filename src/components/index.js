@@ -18,6 +18,7 @@ import CartContent from "./CarContent";
 import PageHero from "./PageHero";
 import StripeCheckout from "./StripeCheckout";
 import FormRow from "./FormRow";
+import StoreInfo from "./StoreInfo";
 
 export {
   FeaturedProducts,
@@ -40,4 +41,5 @@ export {
   PageHero,
   StripeCheckout,
   FormRow,
+  StoreInfo,
 };
