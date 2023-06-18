@@ -28,14 +28,18 @@ export const UserProvider = ({ children }) => {
       toast.error("Login failed");
     }
   };
-  const logout = () => {
-    setLoginDetails({
-      loading: false,
-      error: false,
-    });
-
-    setUser(null);
-    window.location.reload();
+  const logout = async () => {
+    try {
+      const res = axios.get("/api/v1/auth/logout");
+      console.log("In logout log: ", res);
+      setUser(null);
+      console.log("User after logout: ", user);
+    } catch (error) {
+      console.log(error);
+    }
+    // setUser(null);
+    // localStorage.removeItem("token");
+    // console.log("User after logout: ", user);
   };
   const registerUser = async (user) => {
     try {
@@ -46,6 +50,28 @@ export const UserProvider = ({ children }) => {
       toast.error(msg);
     }
   };
+
+  const fetchCurrUser = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      console.log("no token present");
+      return;
+    }
+    try {
+      const res = await axios.get(`/api/v1/users/showMe`);
+      setUser({
+        name: res.data.curUser.name,
+        id: res.data.curUser._id,
+      });
+    } catch (error) {
+      console.log("error in checking token bushahah", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCurrUser();
+  }, []);
+
   return (
     <UserContext.Provider
       value={{ loginWithRedirect, logout, registerUser, ...loginDetails, user }}
