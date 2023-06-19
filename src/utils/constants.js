@@ -33,19 +33,19 @@ export const services = [
     id: 1,
     icon: <GiCompass />,
     title: "mission",
-    text: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates, ea. Perferendis corrupti reiciendis nesciunt rerum velit autem unde numquam nisi",
+    text: "Empowering individuals with seamless access to a diverse range of high-quality products, delivered with exceptional service, to enhance their digital lifestyle.",
   },
   {
     id: 2,
     icon: <GiDiamondHard />,
     title: "vision",
-    text: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates, ea. Perferendis corrupti reiciendis nesciunt rerum velit autem unde numquam nisi",
+    text: " Enriching lives through a seamless online shopping experience, connecting people with innovative products that inspire and elevate their everyday lives.",
   },
   {
     id: 3,
     icon: <GiStabbedNote />,
     title: "history",
-    text: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates, ea. Perferendis corrupti reiciendis nesciunt rerum velit autem unde numquam nisi",
+    text: "Established in 2023, DigiDealz emerged as a pioneering e-commerce website, revolutionizing the online shopping experience for tech enthusiasts with its diverse range of cutting-edge electronics",
   },
 ];
 

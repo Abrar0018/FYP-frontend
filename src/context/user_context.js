@@ -64,7 +64,7 @@ export const UserProvider = ({ children }) => {
         id: res.data.curUser._id,
       });
     } catch (error) {
-      console.log("error in checking token bushahah", error);
+      console.log("No user is present in the cookies.. :)");
     }
   };
 

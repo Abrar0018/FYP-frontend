@@ -1,33 +1,33 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-import heroBcg from '../assets/hero-bcg.jpeg'
-import heroBcg2 from '../assets/hero-bcg-2.jpeg'
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import heroo from "../assets/heroo.jpg";
+import heroo2 from "../assets/heroo2.jpg";
 const Hero = () => {
   return (
-    <Wrapper className='section-center'>
-      <article className='content'>
+    <Wrapper className="section-center">
+      <article className="content">
         <h1>
-          design your <br />
-          comfort zone
+          Empowering Your <br />
+          Digital Journey
         </h1>
         <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto, at
-          sed omnis corporis doloremque possimus velit! Repudiandae nisi odit,
-          aperiam odio ducimus, obcaecati libero et quia tempora excepturi quis
-          alias?
+          Welcome to DigiDealz, where technology meets convenience. With a vast
+          selection of cutting-edge gadgets and electronics, along with
+          exceptional customer service, DigiDealz is your go-to destination for
+          staying connected, entertained, and ahead of the curve.
         </p>
-        <Link to='/products' className='btn hero-btn'>
+        <Link to="/products" className="btn hero-btn">
           shop now
         </Link>
       </article>
-      <article className='img-container'>
-        <img src={heroBcg} alt='nice table' className='main-img' />
-        <img src={heroBcg2} alt='person working' className='accent-img' />
+      <article className="img-container">
+        <img src={heroo} alt="nice table" className="main-img" />
+        <img src={heroo2} alt="person working" className="accent-img" />
       </article>
     </Wrapper>
-  )
-}
+  );
+};
 
 const Wrapper = styled.section`
   min-height: 60vh;
@@ -79,16 +79,16 @@ const Wrapper = styled.section`
       border-radius: var(--radius);
     }
     .img-container::before {
-      content: '';
+      content: "";
       position: absolute;
       width: 10%;
       height: 80%;
-      background: var(--clr-primary-9);
+      background: var(--clr-primary-5);
       bottom: 0%;
       left: -8%;
       border-radius: var(--radius);
     }
   }
-`
+`;
 
-export default Hero
+export default Hero;

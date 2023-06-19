@@ -4,9 +4,10 @@ import { useCartContext } from "../context/cart_context";
 import { useUserContext } from "../context/user_context";
 import { formatPrice } from "../utils/helpers";
 import { Link } from "react-router-dom";
+import { FaUserPlus } from "react-icons/fa";
 const CartTotals = () => {
   const { total_amount, shipping_fee } = useCartContext();
-  const { user, loginWithRedirect } = useUserContext();
+  const { user } = useUserContext();
 
   return (
     <Wrapper>
@@ -28,9 +29,9 @@ const CartTotals = () => {
             proceed to checkout
           </Link>
         ) : (
-          <button onClick={loginWithRedirect} className="btn">
-            login
-          </button>
+          <Link to="/register" className="btn">
+            Login <FaUserPlus />
+          </Link>
         )}
       </div>
     </Wrapper>

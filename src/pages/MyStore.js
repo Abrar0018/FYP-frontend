@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StoreInfo, FormRow, PageHero } from "../components";
 import styled from "styled-components";
-import aboutImg from "../assets/hero-bcg.jpeg";
 import { Link } from "react-router-dom";
 import { formatPrice } from "../utils/helpers";
 import { useStoreContext } from "../context/store_context";

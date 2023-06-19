@@ -12,6 +12,7 @@ import {
   GET_SINGLE_PRODUCT_SUCCESS,
   GET_SINGLE_PRODUCT_ERROR,
 } from "../actions";
+import { useUserContext } from "./user_context";
 
 const url = "/api/v1/products/getAllOtherProducts";
 
@@ -30,6 +31,7 @@ const ProductsContext = React.createContext();
 
 export const ProductsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { user } = useUserContext();
 
   const openSidebar = () => {
     dispatch({ type: SIDEBAR_OPEN });
@@ -62,8 +64,9 @@ export const ProductsProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchProducts(url);
-  }, []);
+    if (user) fetchProducts(url);
+    else fetchProducts("/api/v1/products");
+  }, [user]);
 
   return (
     <ProductsContext.Provider
