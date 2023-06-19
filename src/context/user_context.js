@@ -33,7 +33,6 @@ export const UserProvider = ({ children }) => {
       const res = axios.get("/api/v1/auth/logout");
       console.log("In logout log: ", res);
       setUser(null);
-      console.log("User after logout: ", user);
     } catch (error) {
       console.log(error);
     }
@@ -41,6 +40,7 @@ export const UserProvider = ({ children }) => {
     // localStorage.removeItem("token");
     // console.log("User after logout: ", user);
   };
+
   const registerUser = async (user) => {
     try {
       const res = await axios.post(`/api/v1/auth/register`, user);

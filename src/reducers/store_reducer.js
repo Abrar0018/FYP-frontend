@@ -11,6 +11,7 @@ import {
   GET_STORE_ERROR,
   CREATE_STORE,
   UPDATE_STORE,
+  CLEAR_STORE,
 } from "../actions";
 
 const products_url = "/api/v1/products";
@@ -57,6 +58,10 @@ const products_reducer = (state, action) => {
     console.log("in update store reducer", action.payload);
     updateStore(action.payload);
     return { ...state };
+  }
+
+  if (action.type === CLEAR_STORE) {
+    return { ...state, store: null };
   }
   throw new Error(`No Matching "${action.type}" - action type`);
 };

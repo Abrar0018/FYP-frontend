@@ -7,6 +7,7 @@ import { formatPrice } from "../utils/helpers";
 import { useStoreContext } from "../context/store_context";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useUserContext } from "../context/user_context";
 
 const prod_url = "/api/v1/products";
 const MyStore = () => {
@@ -18,7 +19,17 @@ const MyStore = () => {
     store_error,
     createStore,
   } = useStoreContext();
+  const { user } = useUserContext();
 
+  if (!user) {
+    return (
+      <NoStoreWrapper className="page-100">
+        <section>
+          <h3>No user is logged in....</h3>
+        </section>
+      </NoStoreWrapper>
+    );
+  }
   if (!store) {
     return (
       <NoStoreWrapper className="page-100">

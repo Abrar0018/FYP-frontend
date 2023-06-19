@@ -31,3 +31,4 @@ export const GET_STORE_SUCCESS = "GET_STORE_SUCCESS";
 export const GET_STORE_ERROR = "GET_STORE_ERROR";
 export const CREATE_STORE = "CREATE_STORE";
 export const UPDATE_STORE = "UPDATE_STORE";
+export const CLEAR_STORE = "CLEAR_STORE";

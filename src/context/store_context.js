@@ -13,6 +13,7 @@ import {
   GET_STORE_ERROR,
   CREATE_STORE,
   UPDATE_STORE,
+  CLEAR_STORE,
 } from "../actions";
 import axios from "axios";
 import { useUserContext } from "./user_context";
@@ -85,6 +86,10 @@ export const StoreProvider = ({ children }) => {
   const updateStore = (img, storeDetails) => {
     dispatch({ type: UPDATE_STORE, payload: { img, storeDetails } });
   };
+
+  const clearStore = () => {
+    dispatch({ type: CLEAR_STORE });
+  };
   return (
     <StoreContext.Provider
       value={{
@@ -94,6 +99,7 @@ export const StoreProvider = ({ children }) => {
         deleteProduct,
         createStore,
         updateStore,
+        clearStore,
       }}
     >
       {children}
