@@ -67,29 +67,34 @@ const MyStore = () => {
             </div>
 
             <div className="products-container">
-              {products.map(({ image, name, price, id }) => {
-                return (
-                  <div key={id}>
-                    <div className="container">
-                      <img src={image} alt={name} />
-                    </div>
-                    <footer>
-                      <h5>{name}</h5>
-                      <p>{formatPrice(price)}</p>
-                    </footer>
-                    <div className="btn-container">
-                      <button className="btn">
-                        <Link to={`/mystore/products/updateProduct/${id}`}>
-                          Update
-                        </Link>
-                      </button>
-                      <button className="btn" onClick={() => deleteProduct(id)}>
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
+              {products
+                ? products.map(({ image, name, price, id }) => {
+                    return (
+                      <div key={id}>
+                        <div className="container">
+                          <img src={image} alt={name} />
+                        </div>
+                        <footer>
+                          <h5>{name}</h5>
+                          <p>{formatPrice(price)}</p>
+                        </footer>
+                        <div className="btn-container">
+                          <button className="btn">
+                            <Link to={`/mystore/products/updateProduct/${id}`}>
+                              Update
+                            </Link>
+                          </button>
+                          <button
+                            className="btn"
+                            onClick={() => deleteProduct(id)}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })
+                : null}
             </div>
           </article>
           <div className="title">

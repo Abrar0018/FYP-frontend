@@ -5,9 +5,10 @@ import FormRow from "./FormRow";
 import { categories } from "../utils/constants";
 
 const ProductInfo = ({ prevProduct }) => {
-  const { addProduct } = useStoreContext();
+  const { addProduct, updateProduct } = useStoreContext();
   const [img, setImg] = useState({ selectedFile: null });
   const [product, setProduct] = useState({
+    id: "",
     name: "",
     price: "",
     image: "",
@@ -49,12 +50,16 @@ const ProductInfo = ({ prevProduct }) => {
       toast.error("Please provide all the details before adding the product");
       return;
     }
-    addProduct(img, product);
+    if (prevProduct) {
+      console.log("Before sending update fetch: ", img, product);
+      updateProduct(img, product);
+    } else addProduct(img, product);
   };
 
   useEffect(() => {
     if (prevProduct) {
       setProduct({
+        id: prevProduct.id,
         name: prevProduct.name,
         price: prevProduct.price,
         image: "",
@@ -135,7 +140,7 @@ const ProductInfo = ({ prevProduct }) => {
         </div>
         <div className="form-submit">
           <button type="submit" className="btn">
-            Add product
+            {prevProduct ? "Update product" : "Add product"}
           </button>
         </div>
       </form>

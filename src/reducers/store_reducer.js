@@ -63,12 +63,33 @@ const products_reducer = (state, action) => {
   if (action.type === CLEAR_STORE) {
     return { ...state, store: null };
   }
+
+  if (action.type === UPDATE_STORE_PRODUCT) {
+    updateProduct(action.payload);
+    return { ...state };
+  }
   throw new Error(`No Matching "${action.type}" - action type`);
 };
 
 const deleteProduct = async (id) => {
   try {
     await axios.delete(`${products_url}/${id}`);
+  } catch (error) {
+    console.log(error);
+  }
+};
+const updateProduct = async (payload) => {
+  const img = payload.img;
+  const prod = payload.product;
+  const data = new FormData();
+
+  try {
+    const res = await axios.patch(`${products_url}/${prod.id}`, prod);
+    let imgDetails = `${res.data.product._id}.${
+      img.selectedFile.type.split("/")[1]
+    }`;
+    data.append("image", img.selectedFile, imgDetails);
+    await axios.post(`${products_url}/uploadImage`, data);
   } catch (error) {
     console.log(error);
   }
@@ -84,7 +105,6 @@ const addProduct = async (payload) => {
     let imgDetails = `${res.data.finalProduct.id}.${
       img.selectedFile.type.split("/")[1]
     }`;
-    console.log(imgDetails);
     data.append("image", img.selectedFile, imgDetails);
     await axios.post(`${products_url}/uploadImage`, data);
   } catch (error) {
@@ -99,11 +119,9 @@ const createStore = async (payload) => {
 
   try {
     const res = await axios.post("/api/v1/stores", store);
-    console.log(res);
     let imgDetails = `${res.data.store._id}.${
       img.selectedFile.type.split("/")[1]
     }`;
-    console.log("data: ", res.data.store._id);
     data.append("image", img.selectedFile, imgDetails);
     await axios.post(`/api/v1/stores/uploadImage`, data);
   } catch (error) {
@@ -118,8 +136,6 @@ const updateStore = async (payload) => {
 
   try {
     const res = await axios.patch(`/api/v1/stores/${store.id}`, store);
-    console.log(res);
-    console.log("data: ", res.data.store.id);
     let imgDetails = `${res.data.store._id}.${
       img.selectedFile.type.split("/")[1]
     }`;

@@ -10,7 +10,7 @@ import {
 } from "../components";
 import { useNavigate, useParams } from "react-router-dom";
 import { useProductsContext } from "../context/products_context";
-import { single_product_url as url } from "../utils/constants";
+// import { single_product_url as url } from "../utils/constants";
 
 const UpdateProductPage = () => {
   const { id } = useParams();
@@ -23,7 +23,7 @@ const UpdateProductPage = () => {
   } = useProductsContext();
 
   useEffect(() => {
-    fetchSingleProduct(`${url}recQ0fMd8T0Vk211E`);
+    fetchSingleProduct(`/api/v1/products/${id}`);
     // eslint-disable-next-line
   }, [id]);
   useEffect(() => {

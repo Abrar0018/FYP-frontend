@@ -35,19 +35,22 @@ export const StoreProvider = ({ children }) => {
 
   const fetchProducts = async (url) => {
     dispatch({ type: GET_STORE_PRODUCTS_BEGIN });
-    try {
-      const response = await axios.get(url);
-      const products = response.data.products;
-      console.log(products);
-      dispatch({ type: GET_STORE_PRODUCTS_SUCCESS, payload: products });
-    } catch (error) {
-      dispatch({ type: GET_STORE_PRODUCTS_ERROR });
+    if (state.store) {
+      try {
+        const response = await axios.get(
+          `/api/v1/stores/${state.store._id}/products`
+        );
+        const products = response.data.products;
+        dispatch({ type: GET_STORE_PRODUCTS_SUCCESS, payload: products });
+      } catch (error) {
+        dispatch({ type: GET_STORE_PRODUCTS_ERROR });
+      }
     }
   };
 
   useEffect(() => {
     fetchProducts(products_url);
-  }, []);
+  }, [state.store]);
 
   const fetchStore = async (id) => {
     dispatch({ type: GET_STORE_BEGIN });
@@ -70,8 +73,9 @@ export const StoreProvider = ({ children }) => {
   const addProduct = (img, product) => {
     dispatch({ type: ADD_STORE_PRODUCT, payload: { img, product } });
   };
-  const updateProduct = (product) => {
-    dispatch({ type: UPDATE_STORE_PRODUCT, payload: product });
+  const updateProduct = (img, product) => {
+    console.log("in update product before reducer: ", img, product);
+    dispatch({ type: UPDATE_STORE_PRODUCT, payload: { img, product } });
   };
   const deleteProduct = (product_id) => {
     console.log("in context" + product_id);

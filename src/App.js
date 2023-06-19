@@ -40,14 +40,7 @@ function App() {
         <Route path="register" element={<Register />} />
         <Route path="addproduct" element={<AddProductPage />} />
         <Route path="updatestorepage" element={<UpdateStorePage />} />
-        <Route
-          path="checkout"
-          element={
-            <PrivateRoute>
-              <Checkout />
-            </PrivateRoute>
-          }
-        />
+        <Route path="checkout" element={<Checkout />} />
         <Route path="error" element={<Error />} />
       </Routes>
       <Footer />
